@@ -25,14 +25,32 @@ def selection_sort(array):
 
 def insertion_sort(array):
     #array<num>
-    size = len(array) - 1
+    size = len(array)
     for i in range(1, size):
-        if array[i] > array[i+1]:
-            j = i + 1
+        if array[i] < array[i-1]:
+            j = i
             while j != 0 and array[j] < array[j-1]:
                 array[j-1], array[j] = array[j], array[j-1]     
                 j -= 1    
     return array
 
+monthly_profits = [0.0753761503, 1.896181661, 9.358328301, 1.258097247, 0.1934338566, 1.614021654, 1.415557906, 0.4779822076]
 
-print(insertion_sort([2,3,4,5,1,3,2]))
+# Calculate Cumulative Profits
+cumulative_profits = [monthly_profits[0]]
+for profit in monthly_profits[1:]:
+    cumulative_profits.append(cumulative_profits[-1] + profit)
+
+print(cumulative_profits)
+
+# Calculate Annual CAGR
+beginning_value = monthly_profits[0]
+ending_value = cumulative_profits[-1]
+n = len(monthly_profits)
+total_years = n / 12  # Assuming each value represents a monthly profit
+
+annual_cagr = (ending_value / beginning_value) ** (1 / total_years) - 1
+
+# print('Annual CAGR:', annual_cagr)
+
+# print(insertion_sort([3,2,1]))
